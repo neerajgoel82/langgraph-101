@@ -1,7 +1,7 @@
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.document_loaders import WebBaseLoader
 from langchain_community.vectorstores import Chroma
-from langchain_openai import OpenAIEmbeddings
+from langchain_ollama import OllamaEmbeddings
 
 RAG_PROMPT = """You are an assistant for question-answering tasks. 
 Use the following pieces of retrieved context to answer the question. 
@@ -44,9 +44,12 @@ LANGGRAPH_DOCS = [
     "https://langchain-ai.github.io/langgraph/concepts/faq/"
 ]
 
-def get_vector_db_retriever():
+def get_vector_db_retriever(model_name):
     # Set embeddings
-    embd = OpenAIEmbeddings()
+    embd = OllamaEmbeddings(
+        model=model_name,
+    )
+
     # Docs to index
     urls = LANGGRAPH_DOCS
     # Load
